@@ -211,12 +211,11 @@ async function applyFinalAspectRatio(inputPath, jobDir, aspectRatio) {
 }
 
 function shouldAttachReferenceImage(fields) {
-  return (
-    fields.processMode === "只精修原片" ||
-    fields.hairOption === "匹配参考" ||
-    fields.wardrobeOption === "匹配参考" ||
-    fields.poseOption === "重新设计"
-  );
+  // Do not pass the reference image into the image edit request.
+  // In identity-critical wedding work, a second portrait image can be treated by
+  // the model as a source subject and contaminate the client's face. The
+  // reference must influence generation only through analyzed text prompts.
+  return false;
 }
 
 function getGenerationPrompt(fields) {
@@ -287,7 +286,9 @@ async function generateImage({ fields, files, jobDir }) {
   const includeReferenceImage = shouldAttachReferenceImage(fields) && Boolean(files.referenceImagePath);
   const firstRequest = await buildImageRequestBody({ fields, files, jobDir, includeReferenceImage });
   let response = await requestOpenAI(firstRequest);
-  const warnings = [];
+  const warnings = files.referenceImagePath
+    ? ["参考图已作为风格分析文本使用，生成接口只上传客户原片以保护人物身份。"]
+    : [];
 
   if ((response.statusCode < 200 || response.statusCode >= 300) && includeReferenceImage) {
     warnings.push("参考图作为额外视觉输入失败，已自动退回单原图生成。");

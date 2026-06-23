@@ -494,6 +494,10 @@ ${modeInstruction}
 
 人物身份规则：
 
+- 最高优先级：客户原片中的每一位人物身份必须完全保留。人物身份优先级高于参考图风格、发型匹配、服装匹配、背景匹配、动作设计、身形优化和所谓更好看的审美结果。
+- 参考图只能提供风格、光影、色彩、场景氛围、服装语言和构图方向，绝对不能提供人物五官、脸型、表情模板、年龄感、气质模板或任何身份特征。
+- 如果发型、服装、动作、背景与人物身份发生冲突，必须牺牲发型/服装/动作/背景匹配，优先保证客户本人相似度。
+- 多人合照中，每一个人都必须分别保持本人身份；不能只保留其中一人，不能把男士或女士变成参考图里的模特脸。
 - 不换脸。
 - 不改变人物身份。
 - 不生成成参考图里的人。
@@ -1294,6 +1298,9 @@ async function runLocalQa() {
   const issues = selectedQaIssues();
 
   if (!hasResult) warnings.push("还没有生成结果，不能做最终质检。");
+  if (["匹配参考", "参考风格"].includes(values.hairOption) || ["匹配参考", "参考风格"].includes(values.wardrobeOption) || values.backgroundOption === "强匹配参考") {
+    warnings.push("当前启用了参考图迁移类选项，必须先逐一核对每个人的身份相似度；如果脸像参考图模特或通用 AI 脸，直接判定失败。");
+  }
   if (values.hairOption !== "不参考") warnings.push("发型参考已开启，需重点检查是否改变脸型、发际线和年龄感。");
   if (values.poseOption === "重新设计") warnings.push("动作表情为重新设计，需重点检查身份、人体比例和表情是否像本人。");
   if (values.wardrobeOption === "匹配参考") warnings.push("服装匹配参考已开启，需重点检查是否破坏身体比例、遮挡关系和真实布料结构。");
