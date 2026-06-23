@@ -163,164 +163,194 @@
             <button id="resetBtn" class="icon-button" type="button" title="重置">↺</button>
           </div>
 
-          <label class="field">
-            <span>客户编号</span>
-            <input id="clientId" value="client_20260615" />
-          </label>
+          <details class="control-layer" open>
+            <summary>
+              <span>任务信息</span>
+              <small>客户、任务、模式、张数和画幅</small>
+            </summary>
 
-          <label class="field">
-            <span>任务编号</span>
-            <input id="jobId" value="001" />
-          </label>
-
-          <label class="field">
-            <span>处理方式</span>
-            <select id="processMode">
-              <option>参考图改风格</option>
-              <option>只精修原片</option>
-            </select>
-            <small id="processModeHint">参考图会用于场景、光影、色彩、服装氛围和动作情绪迁移。</small>
-          </label>
-
-          <div class="option-grid primary-options">
             <label class="field">
-              <span>生成张数</span>
-              <select id="variants">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
+              <span>客户编号</span>
+              <input id="clientId" value="client_20260615" />
             </label>
 
             <label class="field">
-              <span>画幅比例</span>
-              <select id="aspectRatio">
-                <option value="1536x1024">横图 3:2</option>
-                <option value="1536x864">横屏满屏 16:9</option>
-                <option value="1536x658">电影宽银幕 21:9</option>
-                <option value="1024x1536">竖图 2:3</option>
-                <option value="864x1536">竖屏满屏 9:16</option>
-                <option value="1024x1024">方图 1:1</option>
-              </select>
-            </label>
-          </div>
-
-          <label class="field">
-            <span>风格包</span>
-            <select id="stylePreset">
-              <option value="forest">明亮森系花园婚礼</option>
-              <option value="bedroom">复古暖调卧室情绪肖像</option>
-            </select>
-          </label>
-
-          <div class="option-grid">
-            <label class="field">
-              <span>发型参考</span>
-              <select id="hairOption">
-                <option>不参考</option>
-                <option>参考风格</option>
-                <option>匹配参考</option>
-              </select>
+              <span>任务编号</span>
+              <input id="jobId" value="001" />
             </label>
 
             <label class="field">
-              <span>背景参考</span>
-              <select id="backgroundOption">
-                <option>参考风格</option>
-                <option>强匹配参考</option>
-                <option>不参考</option>
+              <span>处理方式</span>
+              <select id="processMode">
+                <option>参考图改风格</option>
+                <option>只精修原片</option>
               </select>
+              <small id="processModeHint">参考图会用于场景、光影、色彩、服装氛围和动作情绪迁移。</small>
             </label>
 
-            <label class="field">
-              <span>服装参考</span>
-              <select id="wardrobeOption">
-                <option>参考风格</option>
-                <option>不参考</option>
-                <option>匹配参考</option>
-              </select>
-            </label>
+            <div class="option-grid primary-options">
+              <label class="field">
+                <span>生成张数</span>
+                <select id="variants">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+              </label>
 
-            <label class="field">
-              <span>动作表情</span>
-              <select id="poseOption">
-                <option>动作保持</option>
-                <option>小幅调整</option>
-                <option>重新设计</option>
-              </select>
-            </label>
-
-            <label class="field">
-              <span>身形精修</span>
-              <select id="bodyRetouchOption">
-                <option>自然优化</option>
-                <option>自然保持</option>
-                <option>适度显瘦</option>
-              </select>
-            </label>
-
-            <label class="field">
-              <span>原片缺陷优化</span>
-              <select id="sourceCorrectionOption">
-                <option>自然修正</option>
-                <option>严格保留</option>
-                <option>明显修正</option>
-              </select>
-            </label>
-
-            <label class="field">
-              <span>精修强度</span>
-              <select id="retouchOption">
-                <option>保脸商业精修</option>
-                <option>高端精修</option>
-                <option>商业精修</option>
-                <option>轻精修</option>
-              </select>
-            </label>
-
-            <label class="field">
-              <span>色彩后期</span>
-              <select id="colorGradeOption">
-                <option>高端调色</option>
-                <option>强匹配参考</option>
-                <option>自然校色</option>
-              </select>
-            </label>
-          </div>
-
-          <label class="field">
-            <span>人物锁定要求</span>
-            <textarea id="subjectLock" rows="4">以上传的人物原始照片为唯一主体依据，严格保留人物五官、脸型、年龄感、肤色、真实身份、身材比例与骨相特征。</textarea>
-          </label>
-
-          <label class="field">
-            <span>补充要求</span>
-            <textarea id="extraRequirement" rows="4">皮肤要精修但保留真实毛孔，不要 AI 感，不要塑料感，不要贴图感。</textarea>
-          </label>
-
-          <label class="field">
-            <span>参考图重点</span>
-            <textarea id="referenceFocus" rows="3">如果参考图中头纱、裙摆、花束、道具或特殊动作是视觉重点，必须在生成结果中保留并突出。</textarea>
-          </label>
-
-          <div class="cost-card">
-            <div class="cost-head">
-              <h3>成本估算</h3>
-              <span>估算</span>
+              <label class="field">
+                <span>画幅比例</span>
+                <select id="aspectRatio">
+                  <option value="1536x1024">横图 3:2</option>
+                  <option value="1536x864">横屏满屏 16:9</option>
+                  <option value="1536x658">电影宽银幕 21:9</option>
+                  <option value="1024x1536">竖图 2:3</option>
+                  <option value="864x1536">竖屏满屏 9:16</option>
+                  <option value="1024x1024">方图 1:1</option>
+                </select>
+              </label>
             </div>
-            <div class="cost-grid">
-              <div>
-                <small>本次预计</small>
-                <strong id="estimatedCost">¥0.00</strong>
-              </div>
-              <div>
-                <small>累计生成</small>
-                <strong id="totalCost">¥0.00</strong>
-              </div>
+          </details>
+
+          <details class="control-layer" open>
+            <summary>
+              <span>风格迁移</span>
+              <small>风格包、发型、背景、服装和动作</small>
+            </summary>
+
+            <label class="field">
+              <span>风格包</span>
+              <select id="stylePreset">
+                <option value="forest">明亮森系花园婚礼</option>
+                <option value="bedroom">复古暖调卧室情绪肖像</option>
+              </select>
+            </label>
+
+            <div class="option-grid">
+              <label class="field">
+                <span>发型参考</span>
+                <select id="hairOption">
+                  <option>不参考</option>
+                  <option>参考风格</option>
+                  <option>匹配参考</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>背景参考</span>
+                <select id="backgroundOption">
+                  <option>参考风格</option>
+                  <option>强匹配参考</option>
+                  <option>不参考</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>服装参考</span>
+                <select id="wardrobeOption">
+                  <option>参考风格</option>
+                  <option>不参考</option>
+                  <option>匹配参考</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>动作表情</span>
+                <select id="poseOption">
+                  <option>动作保持</option>
+                  <option>小幅调整</option>
+                  <option>重新设计</option>
+                </select>
+              </label>
             </div>
-            <p id="costDetail">上传客户原片后自动估算。</p>
-          </div>
+          </details>
+
+          <details class="control-layer">
+            <summary>
+              <span>人物精修</span>
+              <small>身形、缺陷、精修、色彩和人物锁定</small>
+            </summary>
+
+            <div class="option-grid">
+              <label class="field">
+                <span>身形精修</span>
+                <select id="bodyRetouchOption">
+                  <option>自然优化</option>
+                  <option>自然保持</option>
+                  <option>适度显瘦</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>原片缺陷优化</span>
+                <select id="sourceCorrectionOption">
+                  <option>自然修正</option>
+                  <option>严格保留</option>
+                  <option>明显修正</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>精修强度</span>
+                <select id="retouchOption">
+                  <option>保脸商业精修</option>
+                  <option>高端精修</option>
+                  <option>商业精修</option>
+                  <option>轻精修</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>色彩后期</span>
+                <select id="colorGradeOption">
+                  <option>高端调色</option>
+                  <option>强匹配参考</option>
+                  <option>自然校色</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="field">
+              <span>人物锁定要求</span>
+              <textarea id="subjectLock" rows="4">以上传的人物原始照片为唯一主体依据，严格保留人物五官、脸型、年龄感、肤色、真实身份、身材比例与骨相特征。</textarea>
+            </label>
+
+            <label class="field">
+              <span>补充要求</span>
+              <textarea id="extraRequirement" rows="4">皮肤要精修但保留真实毛孔，不要 AI 感，不要塑料感，不要贴图感。</textarea>
+            </label>
+
+            <label class="field">
+              <span>参考图重点</span>
+              <textarea id="referenceFocus" rows="3">如果参考图中头纱、裙摆、花束、道具或特殊动作是视觉重点，必须在生成结果中保留并突出。</textarea>
+            </label>
+          </details>
+
+          <details class="control-layer compact-layer">
+            <summary>
+              <span>成本估算</span>
+              <small>按当前张数和画幅估算内部成本</small>
+            </summary>
+
+            <div class="cost-card">
+              <div class="cost-head">
+                <h3>成本估算</h3>
+                <span>估算</span>
+              </div>
+              <div class="cost-grid">
+                <div>
+                  <small>本次预计</small>
+                  <strong id="estimatedCost">¥0.00</strong>
+                </div>
+                <div>
+                  <small>累计生成</small>
+                  <strong id="totalCost">¥0.00</strong>
+                </div>
+              </div>
+              <p id="costDetail">上传客户原片后自动估算。</p>
+            </div>
+          </details>
         </aside>
 
         <section class="panel output-panel">

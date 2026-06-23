@@ -1869,3 +1869,226 @@ h1 {
     min-height: 340px;
   }
 }
+
+/* Refined studio interface */
+body {
+  background:
+    linear-gradient(90deg, rgba(21, 19, 17, 0.026) 1px, transparent 1px) 0 0 / 86px 86px,
+    linear-gradient(180deg, #fdfbf7 0%, #f7f2ea 48%, #f0e8dd 100%);
+}
+
+.brand-nav {
+  border-bottom-color: rgba(33, 28, 24, 0.1);
+}
+
+.hero-art {
+  isolation: isolate;
+  border: 0;
+  box-shadow: 0 22px 70px rgba(37, 30, 24, 0.12);
+}
+
+.hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(14, 13, 12, 0.16), rgba(255, 255, 255, 0.02) 42%, rgba(14, 13, 12, 0.1)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(16, 14, 13, 0.18));
+  pointer-events: none;
+}
+
+.hero-art div {
+  z-index: 2;
+}
+
+.panel {
+  border-color: rgba(34, 28, 22, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 58px rgba(42, 34, 26, 0.1);
+}
+
+.media-panel {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.controls {
+  display: grid;
+  gap: 12px;
+}
+
+.control-layer,
+.delivery-details {
+  border: 1px solid rgba(34, 28, 22, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 251, 245, 0.58));
+  box-shadow: 0 12px 32px rgba(42, 34, 26, 0.06);
+  overflow: hidden;
+  transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+}
+
+.control-layer:hover,
+.delivery-details:hover {
+  border-color: rgba(34, 28, 22, 0.2);
+  box-shadow: 0 16px 42px rgba(42, 34, 26, 0.1);
+}
+
+.control-layer summary,
+.delivery-details summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 5px 14px;
+  align-items: center;
+  min-height: 58px;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ink);
+}
+
+.control-layer summary::-webkit-details-marker,
+.delivery-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.control-layer summary span,
+.delivery-details summary span {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.control-layer summary small,
+.delivery-details summary small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.control-layer summary::after,
+.delivery-details summary::after {
+  content: "";
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid var(--accent-dark);
+  border-bottom: 1px solid var(--accent-dark);
+  transform: rotate(45deg);
+  transition: transform 220ms ease;
+}
+
+.control-layer[open] summary::after,
+.delivery-details[open] summary::after {
+  transform: rotate(225deg);
+}
+
+.control-layer > .field,
+.control-layer > .option-grid,
+.control-layer > .cost-card {
+  margin-inline: 14px;
+}
+
+.control-layer .field {
+  margin-bottom: 10px;
+}
+
+.control-layer .option-grid {
+  gap: 0 8px;
+}
+
+.control-layer > .field:last-child,
+.control-layer > .option-grid:last-child,
+.control-layer > .cost-card:last-child {
+  margin-bottom: 14px;
+}
+
+.control-layer[open] > :not(summary),
+.delivery-details[open] > :not(summary) {
+  animation: layerReveal 260ms ease both;
+}
+
+.compact-layer .cost-card {
+  border: 0;
+  background: rgba(255, 252, 246, 0.42);
+}
+
+.result-viewer,
+.upload-box,
+.style-reference,
+.style-card {
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.result-viewer {
+  box-shadow: inset 0 0 0 1px rgba(255, 252, 246, 0.36), 0 24px 58px rgba(44, 34, 24, 0.12);
+}
+
+.upload-box:hover,
+.style-reference:hover,
+.style-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(42, 34, 26, 0.12);
+}
+
+button {
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(42, 34, 26, 0.14);
+}
+
+input,
+select,
+textarea {
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.controls textarea {
+  min-height: 76px;
+}
+
+.workspace,
+.style-library,
+.hero-art {
+  animation: pageRise 520ms ease both;
+}
+
+.workspace {
+  animation-delay: 80ms;
+}
+
+@keyframes layerReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageRise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
