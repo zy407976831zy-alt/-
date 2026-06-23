@@ -95,6 +95,7 @@ function extractMultipartText(bodyBuffer) {
     prompt: getField("prompt"),
     stylePreset: getField("stylePreset"),
     processMode: getField("processMode"),
+    identityMode: getField("identityMode"),
     hairOption: getField("hairOption"),
     backgroundOption: getField("backgroundOption"),
     wardrobeOption: getField("wardrobeOption"),
@@ -185,6 +186,7 @@ async function handleGenerateImage(req, res) {
     options: {
       stylePreset: fields.stylePreset,
       processMode: fields.processMode,
+      identityMode: fields.identityMode,
       hairOption: fields.hairOption,
       backgroundOption: fields.backgroundOption,
       wardrobeOption: fields.wardrobeOption,

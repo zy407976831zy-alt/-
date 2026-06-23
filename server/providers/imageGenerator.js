@@ -218,10 +218,12 @@ function shouldAttachReferenceImage(fields) {
   return false;
 }
 
-function identityFirewallPrompt() {
+function identityFirewallPrompt(fields = {}) {
+  const formalDelivery = fields.identityMode === "正式交付｜身份绝对锁定";
   return `【人物身份绝对锁定，最高优先级，不得被任何后续风格要求覆盖】
 
 这是一项以客户原片人物身份为核心的婚纱影像工作。第一张客户原片是唯一的人物身份来源。
+当前身份保护模式：${fields.identityMode || "正式交付｜身份绝对锁定"}。
 
 硬性规则：
 1. 必须保留客户原片中每一位人物的真实身份、五官、脸型、年龄感、表情气质和面部识别特征。
@@ -232,12 +234,13 @@ function identityFirewallPrompt() {
 6. 如果发型、服装、动作、背景、身形优化、构图或参考图重点与人物身份发生冲突，必须牺牲这些风格匹配，优先保留客户本人。
 7. 宁可风格不完全像参考图，也不能让人物不像客户原片。人物不像直接判定失败。
 8. 允许商业精修、肤色统一、瑕疵清理和轻微光影塑形，但不允许换脸、改脸型、重绘五官、改变眼神气质或改变年龄感。
+${formalDelivery ? "9. 当前是正式交付模式：禁止重构发型主体、禁止重构服装主体、禁止重新设计动作表情。只允许迁移参考图的光影、色调、背景氛围、构图比例和商业后期质感；如果必须二选一，必须保留原片人物和原片身份，放弃参考图强匹配。" : ""}
 
 最终输出前必须自检：如果成图中的任何人物看起来不像客户原片本人，而是像参考图人物或另一个陌生人，则必须回到原片人物身份。`;
 }
 
 function getGenerationPrompt(fields) {
-  const identityFirewall = identityFirewallPrompt();
+  const identityFirewall = identityFirewallPrompt(fields);
   if (fields.processMode !== "只精修原片") {
     return `${identityFirewall}
 
