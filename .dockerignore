@@ -1,0 +1,9 @@
+.DS_Store
+.env
+.git
+node_modules
+work/jobs
+outputs
+inputs/originals
+inputs/references
+*.log

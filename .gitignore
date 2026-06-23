@@ -1,0 +1,10 @@
+.env
+work/
+outputs/
+node_modules/
+.DS_Store
+**/.DS_Store
+inputs/
+*.log
+.env.local
+.env.*.local

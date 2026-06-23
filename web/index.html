@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>游离现实影像生产台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <nav class="brand-nav" aria-label="主导航">
+        <strong>游离现实</strong>
+        <div>
+          <span>影像项目</span>
+          <span>参考风格</span>
+          <span>成片交付</span>
+        </div>
+      </nav>
+
+      <section class="topbar">
+        <div>
+          <span class="brand-kicker">YOULI REALITY / EDITORIAL IMAGE HOUSE</span>
+          <h1>游离现实影像生产台</h1>
+          <p>以参考影像为风格母版，为客户原片生成统一、真实、可交付的商业级成片。</p>
+        </div>
+        <div class="status-pill">API 已接入</div>
+      </section>
+
+      <section class="hero-art" aria-label="游离现实影像美术主视觉">
+        <img src="./assets/bridal-hero-banner.png" alt="婚纱影像氛围参考" />
+        <div>
+          <span>LOVE AND NATURE AND LIGHT</span>
+          <strong>要有光，要有爱，要自然</strong>
+          <small>RELEASE PREVIEW / YOULI REALITY</small>
+        </div>
+      </section>
+
+      <section class="style-library" aria-label="风格库">
+        <button id="styleLibraryToggle" class="library-toggle" type="button" aria-expanded="false">
+          <span>
+            <span class="brand-kicker">STYLE LIBRARY</span>
+            <strong>风格库</strong>
+          </span>
+          <em>展开风格库</em>
+        </button>
+        <div id="styleLibraryBody" class="style-library-body is-collapsed">
+          <div class="library-head">
+            <span class="brand-kicker">STYLE GUIDE</span>
+            <h2>选择具体风格</h2>
+            <p>下方不是统一预览，而是每个风格包绑定的参考样片。员工先看风格指引，再上传客户照片生成，避免选错方向。</p>
+          </div>
+          <div class="style-category-tabs" aria-label="风格二级分类">
+            <button class="style-category-tab is-active" type="button" data-style-category="studio">棚内婚纱</button>
+            <button class="style-category-tab" type="button" data-style-category="outdoor">外景婚纱</button>
+            <button class="style-category-tab" type="button" data-style-category="destination">目的地婚礼</button>
+            <button class="style-category-tab" type="button" data-style-category="portrait">肖像写真</button>
+          </div>
+          <div id="styleCardRow" class="style-card-row"></div>
+          <p id="styleLibraryHint" class="style-library-hint">当前选中：高调白纱幸福感。请上传对应参考图并点击“分析参考图”，再生成。</p>
+          <div id="stylePreview" class="style-preview">
+            <div class="style-preview-head">
+              <div>
+                <span class="brand-kicker">REFERENCE BOARD</span>
+                <h3 id="stylePreviewTitle">风格指引</h3>
+              </div>
+              <small id="stylePreviewCount">已导入 0 张</small>
+            </div>
+            <div id="stylePreviewGrid" class="style-preview-grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <section class="panel media-panel">
+          <div class="panel-title">
+            <h2>成片画面</h2>
+            <span class="section-index">01</span>
+            <span id="apiStatus" class="hint">未生成</span>
+          </div>
+
+          <div class="result-viewer">
+            <div class="empty-result" id="emptyResult">
+              <span>YOULI REALITY</span>
+              <strong>生成一组真实、克制、可交付的影像作品</strong>
+              <small>先上传客户原片与参考图，再用统一风格完成批量生成。</small>
+            </div>
+            <img id="resultPreview" alt="生成结果" />
+          </div>
+
+          <div class="generation-actions">
+            <button id="generateBtn" type="button">生成图片</button>
+            <button id="downloadJpgBtn" type="button" disabled>下载 JPG</button>
+            <button id="mockResultBtn" type="button">模拟结果</button>
+          </div>
+
+          <div id="retouchWorkflowCard" class="retouch-workflow-card is-hidden">
+            <div class="analysis-header">
+              <div>
+                <h3>第三方精修流程</h3>
+                <small>适用于像素蛋糕、Retouch4me、Evoto。先导出任务包，修完后上传成片回系统归档。</small>
+              </div>
+              <button id="exportRetouchPackageBtn" type="button">导出精修任务包</button>
+            </div>
+            <div class="retouch-steps">
+              <span>1 上传客户原片和参考图</span>
+              <span>2 分析参考图</span>
+              <span>3 导出任务包</span>
+              <span>4 第三方工具精修</span>
+              <span>5 上传成片回传</span>
+            </div>
+            <label class="field retouch-upload">
+              <span>上传第三方精修成片</span>
+              <input id="retouchedImage" type="file" accept="image/*" />
+            </label>
+            <div class="delivery-actions">
+              <button id="downloadRetouchBriefBtn" type="button">下载修图说明</button>
+              <button id="downloadRetouchImagesBtn" type="button">下载原片和参考图</button>
+            </div>
+          </div>
+
+          <div class="upload-grid">
+            <label class="upload-box">
+              <input id="personImage" type="file" accept="image/*" multiple />
+              <span>客户原片</span>
+              <img id="personPreview" alt="" />
+            </label>
+            <label class="upload-box">
+              <input id="referenceImage" type="file" accept="image/*" />
+              <span>参考图</span>
+              <img id="referencePreview" alt="" />
+            </label>
+          </div>
+
+          <div class="batch-card">
+            <div class="analysis-header">
+              <div>
+                <h3>批量队列</h3>
+                <small>多张客户原片将共用同一张参考图风格，按顺序逐张生成。</small>
+              </div>
+              <span id="batchCount" class="hint">0 张</span>
+            </div>
+            <div id="batchList" class="batch-list">
+              <div class="batch-empty">上传多张客户原片后会显示在这里</div>
+            </div>
+          </div>
+
+          <div class="analysis-card">
+            <div class="analysis-header">
+              <div>
+                <h3>参考图分析</h3>
+                <small>先分析参考图，生成风格提示词，再应用到客户原片。</small>
+              </div>
+              <button id="analyzeBtn" type="button">分析参考图</button>
+            </div>
+            <textarea id="styleAnalysis" rows="10" placeholder="分析结果会显示在这里。"></textarea>
+          </div>
+        </section>
+
+        <aside class="panel controls">
+          <div class="panel-title">
+            <h2>生成设定</h2>
+            <span class="section-index">02</span>
+            <button id="resetBtn" class="icon-button" type="button" title="重置">↺</button>
+          </div>
+
+          <label class="field">
+            <span>客户编号</span>
+            <input id="clientId" value="client_20260615" />
+          </label>
+
+          <label class="field">
+            <span>任务编号</span>
+            <input id="jobId" value="001" />
+          </label>
+
+          <label class="field">
+            <span>风格包</span>
+            <select id="stylePreset">
+              <option value="forest">明亮森系花园婚礼</option>
+              <option value="bedroom">复古暖调卧室情绪肖像</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>处理方式</span>
+            <select id="processMode">
+              <option>参考图改风格</option>
+              <option>只精修原片</option>
+            </select>
+            <small id="processModeHint">参考图会用于场景、光影、色彩、服装氛围和动作情绪迁移。</small>
+          </label>
+
+          <div class="option-grid">
+            <label class="field">
+              <span>发型参考</span>
+              <select id="hairOption">
+                <option>不参考</option>
+                <option>参考风格</option>
+                <option>匹配参考</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>背景参考</span>
+              <select id="backgroundOption">
+                <option>参考风格</option>
+                <option>强匹配参考</option>
+                <option>不参考</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>服装参考</span>
+              <select id="wardrobeOption">
+                <option>参考风格</option>
+                <option>不参考</option>
+                <option>匹配参考</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>动作表情</span>
+              <select id="poseOption">
+                <option>动作保持</option>
+                <option>小幅调整</option>
+                <option>重新设计</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>生成张数</span>
+              <select id="variants">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>画幅比例</span>
+              <select id="aspectRatio">
+                <option value="1536x1024">横图 3:2</option>
+                <option value="1536x864">横屏满屏 16:9</option>
+                <option value="1536x658">电影宽银幕 21:9</option>
+                <option value="1024x1536">竖图 2:3</option>
+                <option value="864x1536">竖屏满屏 9:16</option>
+                <option value="1024x1024">方图 1:1</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>身形精修</span>
+              <select id="bodyRetouchOption">
+                <option>自然优化</option>
+                <option>自然保持</option>
+                <option>适度显瘦</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>原片缺陷优化</span>
+              <select id="sourceCorrectionOption">
+                <option>自然修正</option>
+                <option>严格保留</option>
+                <option>明显修正</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>精修强度</span>
+              <select id="retouchOption">
+                <option>保脸商业精修</option>
+                <option>高端精修</option>
+                <option>商业精修</option>
+                <option>轻精修</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>色彩后期</span>
+              <select id="colorGradeOption">
+                <option>高端调色</option>
+                <option>强匹配参考</option>
+                <option>自然校色</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>人物锁定要求</span>
+            <textarea id="subjectLock" rows="4">以上传的人物原始照片为唯一主体依据，严格保留人物五官、脸型、年龄感、肤色、真实身份、身材比例与骨相特征。</textarea>
+          </label>
+
+          <label class="field">
+            <span>补充要求</span>
+            <textarea id="extraRequirement" rows="4">皮肤要精修但保留真实毛孔，不要 AI 感，不要塑料感，不要贴图感。</textarea>
+          </label>
+
+          <label class="field">
+            <span>参考图重点</span>
+            <textarea id="referenceFocus" rows="3">如果参考图中头纱、裙摆、花束、道具或特殊动作是视觉重点，必须在生成结果中保留并突出。</textarea>
+          </label>
+
+          <div class="cost-card">
+            <div class="cost-head">
+              <h3>成本估算</h3>
+              <span>估算</span>
+            </div>
+            <div class="cost-grid">
+              <div>
+                <small>本次预计</small>
+                <strong id="estimatedCost">¥0.00</strong>
+              </div>
+              <div>
+                <small>累计生成</small>
+                <strong id="totalCost">¥0.00</strong>
+              </div>
+            </div>
+            <p id="costDetail">上传客户原片后自动估算。</p>
+          </div>
+        </aside>
+
+        <section class="panel output-panel">
+          <div class="panel-title">
+            <h2>成片交付</h2>
+            <span class="section-index">03</span>
+            <div class="actions">
+              <button id="qaBtn" type="button">智能审核</button>
+              <button id="passBtn" type="button">可交付</button>
+              <button id="reworkBtn" type="button">重做</button>
+            </div>
+          </div>
+
+          <div id="qaResult" class="qa-result">
+            <h3>等待成片</h3>
+            <p>生成图片后，这里会显示交付状态、审核建议和版本记录。</p>
+          </div>
+
+          <div class="delivery-board">
+            <div class="delivery-status">
+              <small>当前状态</small>
+              <strong id="deliveryStatus">待生成</strong>
+            </div>
+            <div class="delivery-status">
+              <small>当前版本</small>
+              <strong id="deliveryVersion">未生成</strong>
+            </div>
+          </div>
+
+          <div class="handoff-card">
+            <h3>重做原因</h3>
+            <div class="reason-grid">
+              <button class="reason-chip" type="button">脸不像</button>
+              <button class="reason-chip" type="button">背景不像</button>
+              <button class="reason-chip" type="button">发型未匹配</button>
+              <button class="reason-chip" type="button">光影不对</button>
+              <button class="reason-chip" type="button">色调不对</button>
+              <button class="reason-chip" type="button">贴图感</button>
+              <button class="reason-chip" type="button">手部问题</button>
+              <button class="reason-chip" type="button">比例失衡</button>
+            </div>
+          </div>
+
+          <label class="field handoff-note">
+            <span>内部备注</span>
+            <textarea id="deliveryNote" rows="5" placeholder="例如：脸部通过，色调很好，下一版需要背景更接近参考图，发型更贴参考。"></textarea>
+          </label>
+
+          <div class="handoff-card">
+            <h3>交付动作</h3>
+            <div class="delivery-actions">
+              <button id="deliveryDownloadBtn" type="button">下载高质量 JPG</button>
+              <button id="copyNoteBtn" type="button">复制备注</button>
+            </div>
+          </div>
+
+          <div class="handoff-card history-card">
+            <div class="history-head">
+              <div>
+                <h3>历史成片</h3>
+                <small>自动保存本机生成记录，可随时查看、下载或删除。</small>
+              </div>
+              <button id="clearHistoryBtn" type="button">清空</button>
+            </div>
+            <div id="historyList" class="history-list">
+              <div class="history-empty">生成成功后会显示在这里</div>
+            </div>
+          </div>
+
+          <div class="panel-title prompt-title is-hidden">
+            <h2>生成提示词</h2>
+            <div class="actions">
+              <button id="togglePromptBtn" type="button">显示提示词</button>
+              <button id="copyBtn" type="button">复制</button>
+              <button id="downloadBtn" type="button">下载</button>
+            </div>
+          </div>
+          <textarea id="promptOutput" class="is-hidden" spellcheck="false"></textarea>
+        </section>
+      </section>
+
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

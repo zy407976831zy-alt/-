@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>游离现实朋友圈海报</title>
+    <style>
+      :root {
+        --paper: #f5efe6;
+        --paper-2: #ebe1d4;
+        --ink: #171411;
+        --soft: #5e554b;
+        --mute: #8d8277;
+        --line: rgba(70, 52, 36, 0.16);
+        --accent: #7b5134;
+        --accent-2: #b79066;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 18% 18%, rgba(255,255,255,.65), transparent 30%),
+          linear-gradient(180deg, #f5efe6 0%, #efe6d9 100%);
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        color: var(--ink);
+      }
+      body {
+        padding: 32px 0;
+      }
+      .sheet {
+        width: 1080px;
+        margin: 0 auto 36px;
+        background: var(--paper);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 28px 80px rgba(60, 43, 28, .12);
+      }
+      .poster {
+        width: 1080px;
+        height: 1920px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(180deg, #f8f3ec 0%, #efe5d7 100%);
+      }
+      .hero {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 980px;
+        object-fit: cover;
+        filter: saturate(.92) contrast(1.02);
+      }
+      .veil {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.50) 32%, rgba(245,239,230,.92) 66%, rgba(245,239,230,.98) 100%);
+      }
+      .topbar {
+        position: absolute;
+        left: 64px;
+        top: 58px;
+        right: 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: rgba(255,255,255,.92);
+        font-size: 22px;
+        letter-spacing: .12em;
+      }
+      .topbar .mini {
+        font-size: 18px;
+        letter-spacing: .18em;
+      }
+      .eyebrow {
+        position: absolute;
+        left: 70px;
+        top: 260px;
+        color: rgba(255,255,255,.92);
+        font-size: 24px;
+        letter-spacing: .28em;
+      }
+      .title {
+        position: absolute;
+        left: 68px;
+        top: 360px;
+        width: 710px;
+        font-family: "Songti SC", "STSong", serif;
+        font-size: 72px;
+        line-height: 1.08;
+        font-weight: 600;
+        color: #fff;
+        text-shadow: 0 6px 28px rgba(0,0,0,.14);
+      }
+      .subtitle {
+        position: absolute;
+        left: 70px;
+        top: 592px;
+        width: 710px;
+        font-size: 30px;
+        line-height: 1.45;
+        color: rgba(255,255,255,.92);
+        text-shadow: 0 6px 28px rgba(0,0,0,.12);
+      }
+      .statement {
+        position: absolute;
+        left: 72px;
+        top: 1090px;
+        width: 880px;
+        font-size: 34px;
+        line-height: 1.58;
+        color: var(--ink);
+      }
+      .panel {
+        position: absolute;
+        left: 52px;
+        top: 320px;
+        width: 744px;
+        height: 500px;
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid rgba(255, 255, 255, 0.48);
+        backdrop-filter: blur(6px);
+      }
+      .statement strong {
+        color: var(--accent);
+      }
+      .cards {
+        position: absolute;
+        left: 66px;
+        top: 1390px;
+        right: 66px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+      .card {
+        min-height: 220px;
+        padding: 34px 30px;
+        background: rgba(255,255,255,.66);
+        border: 1px solid var(--line);
+        backdrop-filter: blur(2px);
+      }
+      .card h3 {
+        margin: 0 0 14px;
+        font-size: 36px;
+        line-height: 1.15;
+        color: var(--ink);
+      }
+      .card p {
+        margin: 0;
+        font-size: 25px;
+        line-height: 1.55;
+        color: var(--soft);
+      }
+      .footer {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        bottom: 62px;
+        display: flex;
+        justify-content: space-between;
+        color: var(--mute);
+        font-size: 22px;
+        letter-spacing: .08em;
+      }
+      .grid-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(64,48,35,.04) 1px, transparent 1px) 0 0 / 84px 84px,
+          linear-gradient(180deg, rgba(64,48,35,.04) 1px, transparent 1px) 0 0 / 84px 84px;
+        mask: linear-gradient(180deg, transparent 0, rgba(0,0,0,.25) 18%, rgba(0,0,0,.55) 70%, black 100%);
+        pointer-events: none;
+      }
+      .cutline {
+        position: absolute;
+        left: 70px;
+        top: 1010px;
+        width: 940px;
+        height: 1px;
+        background: var(--line);
+      }
+      .small-tag {
+        position: absolute;
+        right: 74px;
+        top: 108px;
+        width: 240px;
+        text-align: right;
+        font-size: 22px;
+        line-height: 1.45;
+        color: rgba(255,255,255,.88);
+      }
+      .poster-2 .hero {
+        height: 860px;
+      }
+      .poster-2 .veil {
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.42) 26%, rgba(245,239,230,.90) 60%, rgba(245,239,230,.98) 100%);
+      }
+      .poster-2 .title {
+        top: 300px;
+        width: 760px;
+      }
+      .poster-2 .subtitle {
+        top: 542px;
+        width: 780px;
+      }
+      .poster-2 .statement {
+        top: 980px;
+      }
+      .poster-2 .cards {
+        top: 1290px;
+      }
+      .poster-2 .hero-mask {
+        position: absolute;
+        left: 0;
+        top: 680px;
+        width: 100%;
+        height: 300px;
+        background: linear-gradient(180deg, rgba(245,239,230,.02) 0%, rgba(245,239,230,.94) 100%);
+      }
+      .badge {
+        position: absolute;
+        left: 72px;
+        top: 86px;
+        padding: 10px 16px;
+        border: 1px solid rgba(255,255,255,.36);
+        color: rgba(255,255,255,.95);
+        font-size: 18px;
+        letter-spacing: .18em;
+        backdrop-filter: blur(8px);
+      }
+      .poster-2 .badge {
+        border-color: rgba(123,81,52,.2);
+        color: var(--accent);
+      }
+      .poster-2 .topbar,
+      .poster-2 .eyebrow,
+      .poster-2 .title,
+      .poster-2 .subtitle,
+      .poster-2 .small-tag {
+        color: var(--ink);
+        text-shadow: none;
+      }
+      .poster-2 .hero-copy {
+        position: absolute;
+        left: 70px;
+        top: 132px;
+        width: 620px;
+        font-size: 24px;
+        line-height: 1.65;
+        color: rgba(23,20,17,.72);
+      }
+      .poster-1 .title,
+      .poster-1 .subtitle,
+      .poster-1 .statement {
+        color: var(--ink);
+        text-shadow: none;
+      }
+      .poster-1 .eyebrow,
+      .poster-1 .topbar,
+      .poster-1 .small-tag {
+        color: rgba(74, 56, 41, 0.92);
+        text-shadow: none;
+      }
+      .poster-1 .title {
+        top: 370px;
+      }
+      .poster-1 .subtitle {
+        top: 596px;
+      }
+      .poster-1 .statement {
+        top: 1080px;
+      }
+      .poster-2 .feature-line {
+        position: absolute;
+        left: 70px;
+        top: 258px;
+        width: 860px;
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .poster-2 .feature-line span {
+        padding: 10px 16px;
+        border: 1px solid rgba(123,81,52,.2);
+        color: var(--accent);
+        background: rgba(255,255,255,.55);
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="sheet">
+      <article class="poster poster-1">
+        <img class="hero" src="./assets/bridal-hero-banner.png" alt="海报主视觉" />
+        <div class="veil"></div>
+        <div class="grid-bg"></div>
+        <div class="panel"></div>
+        <div class="badge">游离现实</div>
+        <div class="topbar">
+          <div class="mini">影楼 AI 工作流</div>
+          <div class="mini">参考图分析 / 风格库 / 质检</div>
+        </div>
+        <div class="eyebrow">朋友圈宣传海报 01</div>
+        <div class="title">影楼不只是修图，<br />而是要会“生成成片”</div>
+        <div class="subtitle">把参考图分析、风格库复用、批量生成与严格质检，组合成一套员工能执行、门店能卖钱的工作流。</div>
+        <div class="statement">
+          <strong>像素蛋糕解决效率，游离现实解决成交。</strong><br />
+          我们不是单纯做一个 AI 生图按钮，而是把客户原片变成新的风格成片，让门店在选片前、选片中、选片后都多一层可卖的内容。
+        </div>
+        <div class="cutline"></div>
+        <div class="cards">
+          <div class="card">
+            <h3>客户看见的</h3>
+            <p>同一位客户，可以看到更多风格可能性，而不是只停留在一张原片修图。</p>
+          </div>
+          <div class="card">
+            <h3>门店拿到的</h3>
+            <p>风格包、提示词、质检标准和批量流程，全部沉淀成可以复用的资产。</p>
+          </div>
+        </div>
+        <div class="footer">
+          <span>要有光，要有爱，要自然</span>
+          <span>2026 / 内部宣传图</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="sheet">
+      <article class="poster poster-2">
+        <img class="hero" src="./assets/style-gallery/style-099.png" alt="风格海报主视觉" />
+        <div class="veil"></div>
+        <div class="hero-mask"></div>
+        <div class="badge">游离现实</div>
+        <div class="topbar">
+          <div class="mini">工作流优势</div>
+          <div class="mini">可复制 / 可批量 / 可交付</div>
+        </div>
+        <div class="eyebrow">朋友圈宣传海报 02</div>
+        <div class="title">把参考图审美<br />变成执行指令</div>
+        <div class="subtitle">不是让员工凭感觉修图，而是把风格拆解成可选项：场景、光影、发型、服装、动作、画幅、身形精修与质检。</div>
+        <div class="hero-copy">风格库不是预览墙，而是门店的“可售卖参考样片库”。员工点风格，系统就按这个方向生成，减少误判与返工。</div>
+        <div class="feature-line">
+          <span>参考图分析</span>
+          <span>风格库复用</span>
+          <span>批量生成</span>
+          <span>严格质检</span>
+          <span>高清 JPG 下载</span>
+        </div>
+        <div class="statement">
+          <strong>真正值钱的是闭环。</strong><br />
+          从上传、分析、生成、质检到下载，每一步都有标准，门店才能把 AI 变成稳定生产力，而不是一次性的惊喜。
+        </div>
+        <div class="cards">
+          <div class="card">
+            <h3>给员工</h3>
+            <p>不需要会复杂提示词，只要按流程选风格、传照片、看结果。</p>
+          </div>
+          <div class="card">
+            <h3>给老板</h3>
+            <p>能看成本、速度、返工和交付，方便把它变成真正的生意模型。</p>
+          </div>
+        </div>
+        <div class="footer">
+          <span>游离现实影像生成工作流</span>
+          <span>风格库 / 质检 / 成交</span>
+        </div>
+      </article>
+    </section>
+  </body>
+  </html>
